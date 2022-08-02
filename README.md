@@ -14,32 +14,54 @@ protection.
 
 1. Open application,
 2. Check if database created:
-    - If not ask for making
-    - If yes, continue
+    - If not ~~ask for making~~ make DB,
+    - If yes, continue,
+3. Read from DB
+4. Write to DB:
+   - Info if doubled, error,
+5. Update DB:
+   - Ask if sure.
 
 ***
 
 ## To do:
 
-- Change image
-- GUI (tkinter)
-- DB (sql3lite?)
-- 
+- GUI (tkinter):
+  - Make definition for frame,
+- DB (sqllite3):
+  - OID, autoincremet ID (to check),
+  - OOP connecting and operation,
+  - Encryption,
+- GUI main window ("look"):
+    - Image
+    - Text boxes:
+      - Website,
+      - Login,
+      - Password,
+      - E-mail,
+      - Additional (If more than one accont?),
+      - Index number (Necessary?),
+    - Buttons:
+      - Read,
+      - Write,
+      - Delate (Hidden?),
+   - Color
+   - Icons as button?
+   - Status bar
+   - Icon
 
 ***
 
 ## Milestone:
 
 - ~~First GUI~~
+- Better GUI
+- File (DB) Check
 - Database operation
-
-***
-
-## Made:
-
-- Readme :)
-- Start making app
-- **First GUI :)**
+- Write to DB
+- Read from DB
+- Encryption
+- Easter Eggs
 
 ***
 
