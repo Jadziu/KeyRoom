@@ -14,7 +14,7 @@ protection.
 
 1. Open application,
 2. Check if database created:
-    - If not ~~ask for making~~ make DB,
+    - If not ~~ask for making~~, make DB,
     - If yes, continue,
 3. Read from DB
 4. Write to DB:
@@ -33,29 +33,29 @@ protection.
   - OOP connecting and operation,
   - Encryption,
 - GUI main window ("look"):
-    - Image
+    - ~~Image~~
     - Text boxes:
-      - Website,
-      - Login,
-      - Password,
-      - E-mail,
-      - Additional (If more than one accont?),
-      - Index number (Necessary?),
+      - ~~Website,~~
+      - ~~Login,~~
+      - ~~Password,~~
+      - ~~E-mail,~~
     - Buttons:
       - Read,
       - Write,
+      - Clear,
       - Delate (Hidden?),
-   - Color
+   - ~~Color~~
    - Icons as button?
    - Status bar
-   - Icon
+- Icon
+- Lock geometry
 
 ***
 
 ## Milestone:
 
 - ~~First GUI~~
-- Better GUI
+- ~~Better GUI~~
 - File (DB) Check
 - Database operation
 - Write to DB
