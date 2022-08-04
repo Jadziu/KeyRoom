@@ -10,30 +10,47 @@ lgn = ''
 pwd = ''
 eml = ''
 typ = ''
-status_msg = 'Init: OK'
+status_msg = 'Init: OK\t'
 
 
 def read():
     global status_msg
-    status_msg = 'Reading from database'
+    status_msg = 'Reading record from database...  '
     print("Read button active")
-    return status_msg
+    status_update()
 
 
 def clear():
+    global status_msg
     print("Clear button active")
+    status_msg = 'Wipe entry boxes...  '
+    status_update()
 
 
 def update():
+    global status_msg
     print("Update button active")
+    status_msg = 'Updating record database...  '
+    status_update()
 
 
 def write():
+    global status_msg
     print("Write button active")
+    status_msg = 'Write record to database...  '
+    status_update()
 
 
 def delete():
+    global status_msg
     print("Delete button active")
+    status_msg = 'Deleting record in database...  '
+    status_update()
+
+
+def status_update():
+    status_lbl = Label(frame1, text=status_msg, bd=1, fg='white', bg=bg_colour, relief=GROOVE, anchor='e')
+    status_lbl.grid(row=5, column=0, columnspan=4, pady=15, sticky='we')
 
 
 # Init app.
@@ -46,8 +63,8 @@ logo1 = logo1.resize((180, 180))
 logo1 = ImageTk.PhotoImage(logo1)
 
 # Create app body from 'frame'.
-frame1 = Frame(root, width=720, height=225, bg=bg_colour)
-frame1.grid(row=0, column=0, sticky='nesw')
+frame1 = Frame(root, width=720, height=220, bg=bg_colour)
+frame1.grid(row=0, column=0, columnspan=4, sticky='nesw')
 frame1.grid_propagate(False)
 
 # Create image widget (Logo).
@@ -123,8 +140,7 @@ delete_bt.grid(row=4, column=3, padx=20)
 
 
 # Creating status bar.
-status_lbl = Label(frame1, text=status_msg, bd=1, fg='white', bg=bg_colour, relief=GROOVE, anchor='e')
-status_lbl.grid(row=5, column=0, columnspan=4, sticky='we', pady=20)
+status_update()
 
 # Only for console test.
 print('Init: OK.')
