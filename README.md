@@ -27,7 +27,7 @@ protection.
 ## To do:
 
 - GUI (tkinter):
-  - Make definition for frame,
+  - ~~Make definition for frame,~~ **NO GO**
 - DB (sqllite3):
   - OID, autoincremet ID (to check),
   - OOP connecting and operation,
@@ -42,11 +42,11 @@ protection.
     - Buttons:
       - Read,
       - Write,
-      - Clear,
-      - Delate (Hidden?),
+      - ~~Clear,~~
+      - Delate,
    - ~~Color~~
    - Icons as button?
-   - Status bar
+   - ~~Status bar~~
 - Icon
 - Lock geometry
 
