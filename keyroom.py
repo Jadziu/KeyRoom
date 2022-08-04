@@ -5,30 +5,35 @@ from PIL import Image, ImageTk
 bg_colour = "#425587"
 bg2_colour = "#384873"
 bg3_colour = "#2f3c61"
-url = ''
-lgn = ''
-pwd = ''
-eml = ''
-typ = ''
-status_msg = 'Init: OK\t'
+url, lgn, pwd, eml, typ = '', '', '', '', ''
+status_msg = 'App init status: RUN'
 
 
 def read():
     global status_msg
+    global url, lgn, pwd, eml, typ
+    url = 'Hello'
+    lgn = 'World'
     status_msg = 'Reading record from database...  '
     print("Read button active")
     status_update()
 
 
 def clear():
-    global status_msg
-    print("Clear button active")
+    """Clearing all entry boxes"""
+    global status_msg, url_entry, lgn_entry, pwd_entry, eml_entry, typ_entry
+    url_entry.delete(0, "end")
+    lgn_entry.delete(0, "end")
+    pwd_entry.delete(0, "end")
+    eml_entry.delete(0, "end")
+    typ_entry.delete(0, "end")
     status_msg = 'Wipe entry boxes...  '
     status_update()
 
 
 def update():
     global status_msg
+    global url, lgn, pwd, eml, typ
     print("Update button active")
     status_msg = 'Updating record database...  '
     status_update()
@@ -36,6 +41,7 @@ def update():
 
 def write():
     global status_msg
+    global url, lgn, pwd, eml, typ
     print("Write button active")
     status_msg = 'Write record to database...  '
     status_update()
@@ -43,6 +49,7 @@ def write():
 
 def delete():
     global status_msg
+    global url, lgn, pwd, eml, typ
     print("Delete button active")
     status_msg = 'Deleting record in database...  '
     status_update()
@@ -137,7 +144,6 @@ update_bt.grid(row=3, column=3, padx=20)
 delete_bt = Button(frame1, text='Delete', font=14, width=15, fg='white', bg=bg2_colour,
                    activebackground=bg3_colour, command=lambda: delete())
 delete_bt.grid(row=4, column=3, padx=20)
-
 
 # Creating status bar.
 status_update()
