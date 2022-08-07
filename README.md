@@ -13,14 +13,20 @@ protection.
 ## Scenario:
 
 1. Open application,
-2. Check if database created:
-    - If not ~~ask for making~~, make DB,
-    - If yes, continue,
-3. Read from DB
+2. ~~Check if database created:~~
+    - ~~If not ~~ask for making~~, make DB,~~
+    - ~~If yes, continue,~~
+    - ~~Inform user,~~
+3. Read from DB:
+    - Inform if is no records,
+    - Inform if entry is empty
+    - 'SHOW' will display list of URLs
 4. Write to DB:
    - Info if doubled, error,
 5. Update DB:
    - Ask if sure.
+6. Delete from DB
+7. - Ask if sure.
 
 ***
 
@@ -30,7 +36,7 @@ protection.
   - ~~Make definition for frame,~~ **NO GO**
 - DB (sqllite3):
   - OID, autoincremet ID (to check),
-  - OOP connecting and operation,
+  - ~~OOP connecting and operation,~~
   - Encryption,
 - GUI main window ("look"):
     - ~~Image~~
@@ -44,9 +50,11 @@ protection.
       - Write,
       - ~~Clear,~~
       - Delate,
+      - Update,
    - ~~Color~~
-   - Icons as button?
-   - ~~Status bar~~
+   - Icons as button?,
+   - ~~Status bar~~,
+   - New window with urls,
 - Icon
 - Lock geometry
 
@@ -56,10 +64,11 @@ protection.
 
 - ~~First GUI~~
 - ~~Better GUI~~
-- File (DB) Check
-- Database operation
-- Write to DB
-- Read from DB
+- ~~File (DB) Check~~
+- ~~Database operation~~
+- ~~Write to DB~~
+- ~~Read from DB~~
+- Make app fully operational
 - Encryption
 - Easter Eggs
 

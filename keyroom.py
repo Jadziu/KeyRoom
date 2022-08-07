@@ -1,5 +1,9 @@
+import tkinter.messagebox
+import sqlite3
 from tkinter import *
 from PIL import Image, ImageTk
+from os.path import exists
+
 
 # Variables for common use.
 bg_colour = "#425587"
@@ -7,13 +11,71 @@ bg2_colour = "#384873"
 bg3_colour = "#2f3c61"
 url, lgn, pwd, eml, typ = '', '', '', '', ''
 status_msg = 'App init status: RUN'
+database_name = 'keyroom.db'
+file_exists = exists(database_name)
 
 
+class Database:
+    def __init__(self, database_name):
+        self.connection = sqlite3.connect(database_name)
+        self.cursor = self.connection.cursor()
+
+    def __del__(self):
+        self.connection.close()
+
+    def create_table(self, sql: str):
+        self.cursor.execute(sql)
+        self.connection.commit()
+
+
+def new_table():
+    """Creating database and table with information for user"""
+    global status_msg
+
+    popup = tkinter.messagebox.showinfo('Informacja', 'Brak bazy danych, tworzę nową!')
+    db = Database(database_name)
+
+    db.create_table('''CREATE TABLE passes (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    url TEXT,
+                    lgn TEXT,
+                    pwd TEXT,
+                    eml TEXT,
+                    typ TEXT)''')
+
+    popup2 = tkinter.messagebox.showinfo('Informacja', 'Baza danych utworzona prawidłowo!')
+
+
+# URL: SHOW will open new window with listed all urls
 def read():
+    """Reading records from database and display in entry boxes"""
     global status_msg
     global url, lgn, pwd, eml, typ
-    url = url_entry.get()
+
     status_msg = 'Reading record from database...  '
+    url = url_entry.get()
+
+    if url != '':
+        sql = "SELECT * FROM passes where url = ?"
+        db = Database(database_name)
+        db.cursor.execute(sql, (url, ))
+        record = db.cursor.fetchall()
+
+        if not record:
+            status_msg = 'Brak wpisów pod tym URL...'
+
+        for data in record:
+            lgn_entry.insert(0, data[2])
+            pwd_entry.insert(0, data[3])
+            eml_entry.insert(0, data[4])
+            typ_entry.insert(0, data[5])
+
+        db.connection.commit()
+        db.connection.close()
+
+    else:
+        status_msg = 'Nie wpisano URL...'
+
     print("Read button active")
     status_update()
 
@@ -38,12 +100,18 @@ def update():
     status_update()
 
 
+# Check if doubles
 def write():
+    """Creating new record from form, inserting in table."""
     global status_msg
     global url, lgn, pwd, eml, typ
-    typ_entry.insert(0, url)
 
-    print("Write button active")
+    sql = "INSERT INTO passes(url, lgn, pwd, eml, typ) VALUES (?,?,?,?,?)"
+    data = (url_entry.get(), lgn_entry.get(), pwd_entry.get(), eml_entry.get(), typ_entry.get(),)
+    db = Database(database_name)
+    db.cursor.execute(sql, data)
+    db.connection.commit()
+    db.connection.close()
     status_msg = 'Write record to database...  '
     status_update()
 
@@ -148,6 +216,10 @@ delete_bt.grid(row=4, column=3, padx=20)
 
 # Creating status bar.
 status_update()
+
+# Check if DB existing.
+if not file_exists:
+    new_table()
 
 # Only for console test.
 print('Init: OK.')
