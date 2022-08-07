@@ -12,8 +12,7 @@ status_msg = 'App init status: RUN'
 def read():
     global status_msg
     global url, lgn, pwd, eml, typ
-    url = 'Hello'
-    lgn = 'World'
+    url = url_entry.get()
     status_msg = 'Reading record from database...  '
     print("Read button active")
     status_update()
@@ -42,6 +41,8 @@ def update():
 def write():
     global status_msg
     global url, lgn, pwd, eml, typ
+    typ_entry.insert(0, url)
+
     print("Write button active")
     status_msg = 'Write record to database...  '
     status_update()
