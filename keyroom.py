@@ -44,25 +44,39 @@ def new_table():
                     typ TEXT)''')
 
     popup2 = tkinter.messagebox.showinfo('Informacja', 'Baza danych utworzona prawidłowo!')
+    popup3 = tkinter.messagebox.showinfo('Instrukcja', '1. Aby dodać do bazy wpis wprowadź dane i naciśnij WRITE\n'
+                                                       '2. Aby odczytać wpis, wprwadź URL lub SHORT i naciśnij READ\n'
+                                                       '3. Aby usunąć wpis, wprowadź URL lub SHORT i nacisnij DELETE\n'
+                                                       '4. Aby uak\n'
+                                                       '5. Przycisk CLEAR wyczyści wszystkie pola.\n'
+                                                       '6. Wpisz w URL "SHOW" aby zobaczyć wszystkie SHORT w DB')
 
 
-# URL: SHOW will open new window with listed all urls
 def read():
     """Reading records from database and display in entry boxes"""
     global status_msg
     global url, lgn, pwd, eml, typ
 
-    status_msg = 'Reading record from database...  '
+    status_msg = 'Reading record from database ...  '
     url = url_entry.get()
+    typ = typ_entry.get()
+    db = Database(database_name)
 
-    if url != '':
+    if url != '' and typ == '':
+
+        if url == 'show':
+            sql = "SELECT typ FROM passes"
+            db.cursor.execute(sql)
+            record = db.cursor.fetchall()
+            popup4 = tkinter.messagebox.showinfo('Show shorts in DB:', ' '.join(map(str, record)))
+            print(record)
+
         sql = "SELECT * FROM passes where url = ?"
-        db = Database(database_name)
         db.cursor.execute(sql, (url, ))
         record = db.cursor.fetchall()
 
         if not record:
-            status_msg = 'Brak wpisów pod tym URL...'
+            status_msg = 'Brak wpisów pod tym URL ...'
 
         for data in record:
             lgn_entry.insert(0, data[2])
@@ -70,13 +84,27 @@ def read():
             eml_entry.insert(0, data[4])
             typ_entry.insert(0, data[5])
 
-        db.connection.commit()
-        db.connection.close()
+    elif url == '' and typ != '':
+        sql = "SELECT * FROM passes where typ = ?"
+        db.cursor.execute(sql, (typ,))
+        record = db.cursor.fetchall()
+
+        if not record:
+            status_msg = 'Brak wpisów pod tym SHORT ...'
+
+        for data in record:
+            url_entry.insert(0, data[1])
+            lgn_entry.insert(0, data[2])
+            pwd_entry.insert(0, data[3])
+            eml_entry.insert(0, data[4])
+
+    elif url != '' and typ != '':
+        status_msg = 'Wpisz URL lub SHORT ...'
 
     else:
-        status_msg = 'Nie wpisano URL...'
+        status_msg = 'Nie wpisano URL ani SHORT ...'
 
-    print("Read button active")
+    db.connection.close()
     status_update()
 
 
@@ -183,7 +211,7 @@ eml_entry.grid(row=3, column=2)
 # Type section (Only for making fifth row =)).
 typ_msg = StringVar()
 typ_msg.set(typ)
-typ_lbl = Label(frame1, text='TYPE: ', bg=bg_colour, fg='white', font=('bold', 14))
+typ_lbl = Label(frame1, text='SHORT: ', bg=bg_colour, fg='white', font=('bold', 14))
 typ_lbl.grid(row=4, column=1)
 typ_entry = Entry(frame1, textvariable=typ_msg, fg='white', bg=bg_colour, bd=1, width=30, font=12)
 typ_entry.grid(row=4, column=2)

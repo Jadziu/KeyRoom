@@ -32,6 +32,7 @@ protection.
 
 ## To do:
 
+- ZDECYDUJ CZY PO ENG CZY PO POL !!!!!!
 - GUI (tkinter):
   - ~~Make definition for frame,~~ **NO GO**
 - DB (sqllite3):
