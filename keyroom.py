@@ -141,7 +141,7 @@ def write():
         db.cursor.execute(sql, data)
         db.connection.commit()
         db.connection.close()
-        status_msg = 'Write record to database...  '
+        status_msg = 'Write record to database... '
         status_update()
     else:
         status_msg = 'No data to write in database... '
@@ -152,7 +152,7 @@ def delete():
     global status_msg
     global url, lgn, pwd, eml, typ
     print("Delete button active")
-    status_msg = 'Deleting record in database...  '
+    status_msg = 'Deleting record in database... '
     status_update()
 
 

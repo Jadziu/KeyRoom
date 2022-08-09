@@ -26,7 +26,7 @@ protection.
 5. Update DB:
    - Ask if sure.
 6. Delete from DB
-7. - Ask if sure.
+   - Ask if sure.
 
 ***
 
@@ -53,7 +53,7 @@ protection.
       - Delate,
       - Update,
    - ~~Color~~
-   - Icons as button?,
+   - ~~Icons as button?,~~ **NO GO**
    - ~~Status bar~~,
    - ~~New window with SHORTs,~~
 - Icon
