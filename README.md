@@ -18,11 +18,11 @@ protection.
     - ~~If yes, continue,~~
     - ~~Inform user,~~
 3. Read from DB:
-    - Inform if is no records,
-    - Inform if entry is empty
-    - 'SHOW' will display list of URLs
+    - ~~Inform if is no records,~~
+    - ~~Inform if entry is empty~~
+    - ~~'SHOW' will display list of SHORTSs~~
 4. Write to DB:
-   - Info if doubled, error,
+   - ~~Info if form is empty,~~
 5. Update DB:
    - Ask if sure.
 6. Delete from DB
@@ -48,14 +48,14 @@ protection.
       - ~~E-mail,~~
     - Buttons:
       - Read,
-      - Write,
+      - ~~Write,~~
       - ~~Clear,~~
       - Delate,
       - Update,
    - ~~Color~~
    - Icons as button?,
    - ~~Status bar~~,
-   - New window with urls,
+   - ~~New window with SHORTs,~~
 - Icon
 - Lock geometry
 

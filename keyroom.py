@@ -133,15 +133,19 @@ def write():
     """Creating new record from form, inserting in table."""
     global status_msg
     global url, lgn, pwd, eml, typ
-
     sql = "INSERT INTO passes(url, lgn, pwd, eml, typ) VALUES (?,?,?,?,?)"
     data = (url_entry.get(), lgn_entry.get(), pwd_entry.get(), eml_entry.get(), typ_entry.get(),)
-    db = Database(database_name)
-    db.cursor.execute(sql, data)
-    db.connection.commit()
-    db.connection.close()
-    status_msg = 'Write record to database...  '
-    status_update()
+
+    if url_entry.get().strip() and lgn_entry.get().strip() and typ_entry.get().strip() != '':
+        db = Database(database_name)
+        db.cursor.execute(sql, data)
+        db.connection.commit()
+        db.connection.close()
+        status_msg = 'Write record to database...  '
+        status_update()
+    else:
+        status_msg = 'No data to write in database... '
+        status_update()
 
 
 def delete():
