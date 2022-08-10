@@ -121,10 +121,27 @@ def clear():
 
 
 def update():
+    """Update data record in database"""
     global status_msg
     global url, lgn, pwd, eml, typ
-    print("Update button active")
-    status_msg = 'Updating record database...  '
+    url = url_entry.get().strip()
+    lgn = lgn_entry.get().strip()
+    pwd = pwd_entry.get().strip()
+    eml = eml_entry.get().strip()
+    typ = typ_entry.get().strip()
+    sql = "UPDATE passes SET url = ?, lgn = ?, pwd = ?, eml = ? WHERE typ = ?"
+    data = (url, lgn, pwd, eml, typ)
+    db = Database(database_name)
+
+    # Check SHORT value:
+    if typ != '':
+        db.cursor.execute(sql, (url, lgn, pwd, eml, typ))
+        db.connection.commit()
+        status_msg = 'Updating record in database... '
+    else:
+        status_msg = 'To update record need SHORT... '
+
+    db.connection.close()
     status_update()
 
 
@@ -143,7 +160,7 @@ def write():
         db.connection.close()
         status_msg = 'Write record to database... '
         status_update()
-        
+
     else:
         status_msg = 'No data to write in database... '
         status_update()
@@ -160,12 +177,12 @@ def delete():
 
     # Check if URL or SHORT is entered:
     if url != '':
-        sql = "DELETE from passes WHERE url = ?"
+        sql = "DELETE FROM passes WHERE url = ?"
         db.cursor.execute(sql, (url,))
         status_msg = 'Deleting record in database... '
 
     elif typ != '':
-        sql = "DELETE from passes WHERE typ = ?"
+        sql = "DELETE FROM passes WHERE typ = ?"
         db.cursor.execute(sql, (typ,))
         status_msg = 'Deleting record in database... '
 
@@ -175,6 +192,7 @@ def delete():
     db.connection.commit()
     db.connection.close()
     status_update()
+    clear()
 
 
 def status_update():

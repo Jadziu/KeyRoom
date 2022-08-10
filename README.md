@@ -3,8 +3,7 @@
 ***
 
 Application for storing logins, keys, passwords, etc. Created for Python
-coding training. Ultimately with full database encryption and password
-protection.
+coding training. No Encrytpion, use at your own risk.
 
 ![Key_image](img/key.svg)
 
@@ -24,7 +23,7 @@ protection.
 4. Write to DB:
    - ~~Info if form is empty,~~
 5. Update DB:
-   - Ask if sure. **NO GO**
+   - ~~Ask if sure.~~ **NO GO**
 6. Delete from DB
    - ~~Ask if sure.~~ **NO GO**
 
@@ -51,7 +50,7 @@ protection.
       - ~~Write,~~
       - ~~Clear,~~
       - ~~Delate,~~
-      - Update,
+      - ~~Update~~,
    - ~~Color~~
    - ~~Icons as button?,~~ **NO GO**
    - ~~Status bar~~,
@@ -70,8 +69,6 @@ protection.
 - ~~Write to DB~~
 - ~~Read from DB~~
 - Make app fully operational
-- Encryption
-- Easter Eggs
 
 ***
 
