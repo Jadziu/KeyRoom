@@ -24,9 +24,9 @@ protection.
 4. Write to DB:
    - ~~Info if form is empty,~~
 5. Update DB:
-   - Ask if sure.
+   - Ask if sure. **NO GO**
 6. Delete from DB
-   - Ask if sure.
+   - ~~Ask if sure.~~ **NO GO**
 
 ***
 
@@ -36,7 +36,7 @@ protection.
 - GUI (tkinter):
   - ~~Make definition for frame,~~ **NO GO**
 - DB (sqllite3):
-  - OID, autoincremet ID (to check),
+  - ~~OID, autoincremet ID (to check),~~
   - ~~OOP connecting and operation,~~
   - Encryption,
 - GUI main window ("look"):
@@ -47,10 +47,10 @@ protection.
       - ~~Password,~~
       - ~~E-mail,~~
     - Buttons:
-      - Read,
+      - ~~Read,~~
       - ~~Write,~~
       - ~~Clear,~~
-      - Delate,
+      - ~~Delate,~~
       - Update,
    - ~~Color~~
    - ~~Icons as button?,~~ **NO GO**

@@ -128,7 +128,6 @@ def update():
     status_update()
 
 
-# Check if doubles
 def write():
     """Creating new record from form, inserting in table."""
     global status_msg
@@ -136,6 +135,7 @@ def write():
     sql = "INSERT INTO passes(url, lgn, pwd, eml, typ) VALUES (?,?,?,?,?)"
     data = (url_entry.get(), lgn_entry.get(), pwd_entry.get(), eml_entry.get(), typ_entry.get(),)
 
+    # Check if form is not empty:
     if url_entry.get().strip() and lgn_entry.get().strip() and typ_entry.get().strip() != '':
         db = Database(database_name)
         db.cursor.execute(sql, data)
@@ -143,16 +143,37 @@ def write():
         db.connection.close()
         status_msg = 'Write record to database... '
         status_update()
+        
     else:
         status_msg = 'No data to write in database... '
         status_update()
 
 
 def delete():
+    """Delete record from database"""
     global status_msg
     global url, lgn, pwd, eml, typ
-    print("Delete button active")
-    status_msg = 'Deleting record in database... '
+
+    url = url_entry.get().strip()
+    typ = typ_entry.get().strip()
+    db = Database(database_name)
+
+    # Check if URL or SHORT is entered:
+    if url != '':
+        sql = "DELETE from passes WHERE url = ?"
+        db.cursor.execute(sql, (url,))
+        status_msg = 'Deleting record in database... '
+
+    elif typ != '':
+        sql = "DELETE from passes WHERE typ = ?"
+        db.cursor.execute(sql, (typ,))
+        status_msg = 'Deleting record in database... '
+
+    else:
+        status_msg = 'Need URL or SHORT to delete record... '
+
+    db.connection.commit()
+    db.connection.close()
     status_update()
 
 
