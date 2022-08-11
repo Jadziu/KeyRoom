@@ -10,19 +10,23 @@ bg_colour = "#425587"
 bg2_colour = "#384873"
 bg3_colour = "#2f3c61"
 url, lgn, pwd, eml, typ = '', '', '', '', ''
-status_msg = 'App init status: RUN'
+status_msg = 'Writed by PJ...   '
 database_name = 'keyroom.db'
 file_exists = exists(database_name)
 
 
+# Database object. Connection, close and create table.
 class Database:
+    # Make connection/create new DB.
     def __init__(self, database_name):
         self.connection = sqlite3.connect(database_name)
         self.cursor = self.connection.cursor()
 
+    # Close connection.
     def __del__(self):
         self.connection.close()
 
+    # Create new table.
     def create_table(self, sql: str):
         self.cursor.execute(sql)
         self.connection.commit()
@@ -32,9 +36,10 @@ def new_table():
     """Creating database and table with information for user"""
     global status_msg
 
-    popup = tkinter.messagebox.showinfo('Informacja', 'Brak bazy danych, tworzę nową!')
+    popup = tkinter.messagebox.showinfo('INFO!!!', 'No database, making new...')
     db = Database(database_name)
 
+    # Creating new table in DB.
     db.create_table('''CREATE TABLE passes (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     url TEXT,
@@ -43,40 +48,43 @@ def new_table():
                     eml TEXT,
                     typ TEXT)''')
 
-    popup2 = tkinter.messagebox.showinfo('Informacja', 'Baza danych utworzona prawidłowo!')
-    popup3 = tkinter.messagebox.showinfo('Instrukcja', '1. Aby dodać do bazy wpis wprowadź dane i naciśnij WRITE\n'
-                                                       '2. Aby odczytać wpis, wprwadź URL lub SHORT i naciśnij READ\n'
-                                                       '3. Aby usunąć wpis, wprowadź URL lub SHORT i nacisnij DELETE\n'
-                                                       '4. Aby uak\n'
-                                                       '5. Przycisk CLEAR wyczyści wszystkie pola.\n'
-                                                       '6. Wpisz w URL "SHOW" aby zobaczyć wszystkie SHORT w DB')
+    # Popup message with info and instruction
+    popup2 = tkinter.messagebox.showinfo('INFO!!!', 'Created new database...')
+    popup3 = tkinter.messagebox.showinfo('HOW TO USE:',
+                                         '1. To add a record to the database, enter the data and press WRITE.\n '
+                                         '2. To read a record, enter URL or SHORT and hit READ.\n '
+                                         '3. To delete a record, enter URL or SHORT and press DELETE.\n'
+                                         '4. To update a record, read from DB, correct the data and press UPDATE.\n'
+                                         '5. The CLEAR button will clear all fields in form.\n '
+                                         '6. Enter "SHOW" in url to see all SHORTs in DB ')
 
 
 def read():
-    """Reading records from database and display in entry boxes"""
+    """Read records from database and display in entry boxes"""
     global status_msg
     global url, lgn, pwd, eml, typ
 
-    status_msg = 'Reading record from database ...  '
+    status_msg = 'Reading record from database...   '
     url = url_entry.get()
     typ = typ_entry.get()
     db = Database(database_name)
 
+    # Check if entered data is valic.
     if url != '' and typ == '':
 
-        if url == 'show':
+        # If entered 'SHOW' popup message with SHORTS.
+        if url.lower() == 'show':
             sql = "SELECT typ FROM passes"
             db.cursor.execute(sql)
             record = db.cursor.fetchall()
             popup4 = tkinter.messagebox.showinfo('Show shorts in DB:', ' '.join(map(str, record)))
-            print(record)
 
         sql = "SELECT * FROM passes where url = ?"
         db.cursor.execute(sql, (url, ))
         record = db.cursor.fetchall()
 
         if not record:
-            status_msg = 'Brak wpisów pod tym URL ...'
+            status_msg = 'No records under this URL...   '
 
         for data in record:
             lgn_entry.insert(0, data[2])
@@ -90,7 +98,7 @@ def read():
         record = db.cursor.fetchall()
 
         if not record:
-            status_msg = 'Brak wpisów pod tym SHORT ...'
+            status_msg = 'No records under this SHORT...   '
 
         for data in record:
             url_entry.insert(0, data[1])
@@ -99,24 +107,26 @@ def read():
             eml_entry.insert(0, data[4])
 
     elif url != '' and typ != '':
-        status_msg = 'Wpisz URL lub SHORT ...'
+        status_msg = 'Enter URL or SHORT to read records...   '
 
     else:
-        status_msg = 'Nie wpisano URL ani SHORT ...'
+        status_msg = 'Nothing in entry URL or SHORT...   '
 
     db.connection.close()
     status_update()
 
 
 def clear():
-    """Clearing all entry boxes"""
+    """Wiping all entry boxes"""
     global status_msg, url_entry, lgn_entry, pwd_entry, eml_entry, typ_entry
+
     url_entry.delete(0, "end")
     lgn_entry.delete(0, "end")
     pwd_entry.delete(0, "end")
     eml_entry.delete(0, "end")
     typ_entry.delete(0, "end")
-    status_msg = 'Wipe entry boxes...  '
+
+    status_msg = 'Wipe entry boxes...   '
     status_update()
 
 
@@ -124,22 +134,23 @@ def update():
     """Update data record in database"""
     global status_msg
     global url, lgn, pwd, eml, typ
+
     url = url_entry.get().strip()
     lgn = lgn_entry.get().strip()
     pwd = pwd_entry.get().strip()
     eml = eml_entry.get().strip()
     typ = typ_entry.get().strip()
     sql = "UPDATE passes SET url = ?, lgn = ?, pwd = ?, eml = ? WHERE typ = ?"
-    data = (url, lgn, pwd, eml, typ)
     db = Database(database_name)
 
     # Check SHORT value:
     if typ != '':
         db.cursor.execute(sql, (url, lgn, pwd, eml, typ))
         db.connection.commit()
-        status_msg = 'Updating record in database... '
+        status_msg = 'Updating record in database...   '
+
     else:
-        status_msg = 'To update record need SHORT... '
+        status_msg = 'To update record need SHORT...   '
 
     db.connection.close()
     status_update()
@@ -158,11 +169,11 @@ def write():
         db.cursor.execute(sql, data)
         db.connection.commit()
         db.connection.close()
-        status_msg = 'Write record to database... '
+        status_msg = 'Write record to database...   '
         status_update()
 
     else:
-        status_msg = 'No data to write in database... '
+        status_msg = 'No data to write in database...   '
         status_update()
 
 
@@ -179,15 +190,15 @@ def delete():
     if url != '':
         sql = "DELETE FROM passes WHERE url = ?"
         db.cursor.execute(sql, (url,))
-        status_msg = 'Deleting record in database... '
+        status_msg = 'Deleting record in database...   '
 
     elif typ != '':
         sql = "DELETE FROM passes WHERE typ = ?"
         db.cursor.execute(sql, (typ,))
-        status_msg = 'Deleting record in database... '
+        status_msg = 'Deleting record in database...   '
 
     else:
-        status_msg = 'Need URL or SHORT to delete record... '
+        status_msg = 'Need URL or SHORT to delete record...   '
 
     db.connection.commit()
     db.connection.close()
@@ -196,13 +207,16 @@ def delete():
 
 
 def status_update():
+    """Update information in status bar"""
     status_lbl = Label(frame1, text=status_msg, bd=1, fg='white', bg=bg_colour, relief=GROOVE, anchor='e')
     status_lbl.grid(row=5, column=0, columnspan=4, pady=15, sticky='we')
 
 
-# Init app.
+# Init GUI.
 root = Tk()
 root.title('KeyRoom')
+root.resizable(width=False, height=False)
+root.iconbitmap('assets/lock_icon.ico')
 
 # Load and resize logo1 and convert to TkImage.
 logo1 = Image.open('assets/lock.png')
@@ -259,6 +273,7 @@ typ_lbl.grid(row=4, column=1)
 typ_entry = Entry(frame1, textvariable=typ_msg, fg='white', bg=bg_colour, bd=1, width=30, font=12)
 typ_entry.grid(row=4, column=2)
 
+
 # Creating buttons in frame1 grin:
 # Read button.
 read_bt = Button(frame1, text='Read', font=14, width=15, fg='white', bg=bg2_colour,
@@ -293,6 +308,6 @@ if not file_exists:
     new_table()
 
 # Only for console test.
-print('Init: OK.')
+print('App created by PJ...   ')
 
 root.mainloop()

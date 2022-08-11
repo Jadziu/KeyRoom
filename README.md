@@ -11,7 +11,7 @@ coding training. No Encrytpion, use at your own risk.
 
 ## Scenario:
 
-1. Open application,
+1. ~~Open application,~~
 2. ~~Check if database created:~~
     - ~~If not ~~ask for making~~, make DB,~~
     - ~~If yes, continue,~~
@@ -31,13 +31,13 @@ coding training. No Encrytpion, use at your own risk.
 
 ## To do:
 
-- ZDECYDUJ CZY PO ENG CZY PO POL !!!!!!
+- ~~ZDECYDUJ CZY PO ENG CZY PO POL !!!!!!~~
 - GUI (tkinter):
   - ~~Make definition for frame,~~ **NO GO**
 - DB (sqllite3):
   - ~~OID, autoincremet ID (to check),~~
   - ~~OOP connecting and operation,~~
-  - Encryption,
+  - ~~Encryption,~~ **NO GO**
 - GUI main window ("look"):
     - ~~Image~~
     - Text boxes:
@@ -55,8 +55,8 @@ coding training. No Encrytpion, use at your own risk.
    - ~~Icons as button?,~~ **NO GO**
    - ~~Status bar~~,
    - ~~New window with SHORTs,~~
-- Icon
-- Lock geometry
+- ~~Icon~~
+- ~~Lock geometry~~
 
 ***
 
@@ -68,7 +68,7 @@ coding training. No Encrytpion, use at your own risk.
 - ~~Database operation~~
 - ~~Write to DB~~
 - ~~Read from DB~~
-- Make app fully operational
+- ~~Make app fully operational~~
 
 ***
 
